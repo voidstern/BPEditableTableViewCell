@@ -1,6 +1,5 @@
 //
 //  BPSwitchEditableTableViewCell.m
-//  Brewtool
 //
 //  Created by Jon Olson on 10/14/09.
 //  Copyright 2009 Ballistic Pigeon, LLC. All rights reserved.
@@ -11,34 +10,73 @@
 
 @implementation BPSwitchEditableTableViewCell
 
-+ (Class)controlClass {
++ (Class)controlClass
+{
 	return [UISwitch class];
 }
 
-#pragma mark -
-#pragma mark Switch accessor
+- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithReuseIdentifier:reuseIdentifier])
+    {
+        [self.switchControl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+    }
+    
+    return self;
+}
 
-- (UISwitch *)switchControl {
+- (id)initWithLabel:(NSString *)label value:(id)value reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [self initWithLabel:label reuseIdentifier:reuseIdentifier];
+    if (self)
+    {
+        self.switchControl.on = [value boolValue];
+    }
+    return self;
+}
+
+- (id)initWithLabel:(NSString *)label value:(id)value reuseIdentifier:(NSString *)reuseIdentifier andBlock:(ActionBlock)actionBlock
+{
+    self = [self initWithLabel:label value:value reuseIdentifier:reuseIdentifier];
+    if (self)
+    {
+        [self.switchControl handleControlEvents:UIControlEventValueChanged withBlock:actionBlock];
+        self.switchControl.on = [value boolValue];
+    }
+    return self;
+}
+
+- (id)initWithLabel:(NSString *)label boolValue:(BOOL)value reuseIdentifier:(NSString *)reuseIdentifier andBlock:(ActionBlock)actionBlock
+{
+    return [self initWithLabel:label value:@(value) reuseIdentifier:reuseIdentifier andBlock:actionBlock];
+}
+
+#pragma mark - Switch accessor
+
+- (UISwitch *)switchControl
+{
 	return (UISwitch *)self.control;
 }
 
-#pragma mark -
-#pragma mark Value accessors
+#pragma mark - Value accessors
 
-- (id)value {
+- (id)value
+{
 	return [NSNumber numberWithBool:self.switchControl.on];
 }
 
-- (void)setValue:(id)aValue {
+- (void)setValue:(id)aValue
+{
 	self.switchControl.on = [aValue boolValue];
 }
 
-#pragma mark -
-#pragma mark Layout
+#pragma mark - Layout
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
 	[super layoutSubviews];
-	control.frame = CGRectMake(198, 8, 0, 0);
+    [self.detailTextLabel removeFromSuperview];
+	control.frame = CGRectMake(216, 8, 0, 0);
 }
 
 @end

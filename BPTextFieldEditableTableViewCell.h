@@ -15,6 +15,7 @@
 
 @property (readonly) UITextField *textField;
 
-- (id)initWithLabel:(NSString *)label placeholder:(NSString *)placeholder reuseIdentifier:(NSString *)reuseIdentifier;
+
+- (id)initWithLabel:(NSString *)label placeholder:(NSString *)placeholder value:(id)value reuseIdentifier:(NSString *)reuseIdentifier andBlock:(ActionBlock)actionBlock;
 
 @end

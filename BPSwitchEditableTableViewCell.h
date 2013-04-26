@@ -15,4 +15,6 @@
 
 @property (readonly) UISwitch *switchControl;
 
+- (id)initWithLabel:(NSString *)label boolValue:(BOOL)value reuseIdentifier:(NSString *)reuseIdentifier andBlock:(ActionBlock)actionBlock;
+
 @end

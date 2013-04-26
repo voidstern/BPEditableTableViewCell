@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIControl+ALActionBlocks.h"
+#import "VSCStyledGroupedTableViewCell.h"
 
-@interface BPEditableTableViewCell : UITableViewCell {
+@interface BPEditableTableViewCell : VSCStyledGroupedTableViewCell
+{
 	UIControl *control;
-	
-    BOOL disabledWhenNotEditing;
-    
-	id delegate;
 }
 
 @property (readonly) UIControl *control;
@@ -24,6 +23,8 @@
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 - (id)initWithLabel:(NSString *)label reuseIdentifier:(NSString *)reuseIdentifier;
+- (id)initWithLabel:(NSString *)label value:(id)value reuseIdentifier:(NSString *)reuseIdentifier;
+- (id)initWithLabel:(NSString *)label value:(id)value reuseIdentifier:(NSString *)reuseIdentifier andBlock:(ActionBlock)actionBlock;
 
 @end
 
